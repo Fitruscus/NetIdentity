@@ -40,6 +40,8 @@ namespace NetIdentity.Data
                     await userManager.AddToRoleAsync(adminUser, "Admin");
                     await userManager.AddClaimAsync(adminUser,
                         new System.Security.Claims.Claim("FechaNacimiento", adminUser.FechaNacimiento.ToString("yyyy-MM-dd")));
+                    await userManager.AddClaimAsync(adminUser,
+                        new System.Security.Claims.Claim("genero", adminUser.genero));
                 }
             }
 
@@ -61,6 +63,8 @@ namespace NetIdentity.Data
                     await userManager.AddToRoleAsync(userMenor, "Usuario");
                     await userManager.AddClaimAsync(userMenor,
                         new System.Security.Claims.Claim("FechaNacimiento", userMenor.FechaNacimiento.ToString("yyyy-MM-dd")));
+                    await userManager.AddClaimAsync(userMenor,
+                        new System.Security.Claims.Claim("genero", userMenor.genero));
                 }
             }
 
@@ -82,6 +86,8 @@ namespace NetIdentity.Data
                     await userManager.AddToRoleAsync(userMayor, "Usuario");
                     await userManager.AddClaimAsync(userMayor,
                         new System.Security.Claims.Claim("FechaNacimiento", userMayor.FechaNacimiento.ToString("yyyy-MM-dd")));
+                    await userManager.AddClaimAsync(userMayor,
+                        new System.Security.Claims.Claim("genero", userMayor.genero));
                 }
             }
         }
