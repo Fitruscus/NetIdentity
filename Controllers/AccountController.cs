@@ -70,8 +70,13 @@ namespace NetIdentity.Controllers
                 await _userManager.AddToRoleAsync(user, "Usuario");
                 await _userManager.AddClaimAsync(user,
                     new System.Security.Claims.Claim("FechaNacimiento", fechaNacimiento.ToString("yyyy-MM-dd")));
+                await _userManager.AddClaimAsync(user,
+                    new System.Security.Claims.Claim("genero", genero));
 
+                // Refresca la cookie de autenticación para incluir los nuevos claims
+                await _signInManager.SignOutAsync();
                 await _signInManager.SignInAsync(user, isPersistent: false);
+
                 return RedirectToAction("Index", "Home");
             }
 

@@ -7,6 +7,7 @@ namespace NetIdentity.Controllers
     
     public class ActividadesController : Controller
     {
+        [Authorize(Policy = "SoloFemenino")]
         public IActionResult Index()
         {
             return View();
@@ -20,7 +21,7 @@ namespace NetIdentity.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Policy = "SoloFemenino")]
         public IActionResult Tareas()
         {
             return View();

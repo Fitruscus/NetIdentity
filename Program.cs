@@ -35,10 +35,23 @@ builder.Services.AddAuthorization(options =>
                 var birthDateClaim = user.FindFirst("FechaNacimiento");
                 if (birthDateClaim != null && DateTime.TryParse(birthDateClaim.Value, out DateTime birthDate))
                 {
-                    var edad = DateTime.Today.Year - birthDate.Year;
-                    if (birthDate.Date > DateTime.Today.AddYears(-edad)) edad--;
+                    var today = DateTime.Today;
+                    var edad = today.Year - birthDate.Year;
+                    if (birthDate.Date > today.AddYears(-edad)) edad--;
                     return edad < 18;
                 }
+            }
+            return false;
+        }));
+
+    options.AddPolicy("SoloFemenino", policy =>
+        policy.RequireAssertion(context =>
+        {
+            var user = context.User;
+            if (user.Identity?.IsAuthenticated == true)
+            {
+                var generoClaim = user.FindFirst("genero");
+                return generoClaim != null && generoClaim.Value == "F";
             }
             return false;
         }));
